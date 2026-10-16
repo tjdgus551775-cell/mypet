@@ -1,0 +1,11 @@
+Dog footstep sounds (0.ogg - 7.ogg)
+
+"Dog running" by congusbongus
+https://opengameart.org/content/dog-running-0
+License: CC-BY 3.0  http://creativecommons.org/licenses/by/3.0/
+
+Derived from "Wolf run.wav" by sabotovat
+https://freesound.org/people/sabotovat/sounds/414350/
+License: CC-BY 3.0
+
+Changes: in the game only the short paw impacts are cut out of each clip (the panting is skipped).

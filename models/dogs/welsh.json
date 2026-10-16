@@ -1,0 +1,19 @@
+{
+  "name": "코기",
+  "note": "사진으로 만든 몸. 몸을 왼쪽 옆에서 본 그림(머리가 왼쪽) 위의 관절 위치. 좌표는 그림의 가로·세로를 0~1로 본 값이다.",
+  "size": 0.95,
+  "toon": 0.6,
+  "waddle": 1.6,
+  "face": "This dog is a Pembroke Welsh Corgi, not a Shiba Inu: a clear white blaze runs from the forehead down between the eyes to a white muzzle, white cheeks and chin, red-and-white coat, large upright ears, a fairly long fox-like muzzle.",
+  "points": {
+    "nose": [0.065, 0.385],
+    "skull": [0.25, 0.33],
+    "neck_base": [0.33, 0.45],
+    "chest": [0.33, 0.52],
+    "pelvis": [0.82, 0.52],
+    "ear": { "base": [0.27, 0.27], "tip": [0.285, 0.18] },
+    "tail": [[0.9, 0.48], [0.93, 0.5], [0.96, 0.52]],
+    "front_legs": [{ "shoulder": [0.36, 0.62], "elbow": [0.36, 0.71], "wrist": [0.35, 0.8], "paw": [0.31, 0.835] }],
+    "hind_legs": [{ "hip": [0.86, 0.6], "knee": [0.83, 0.69], "hock": [0.875, 0.76], "ankle": [0.86, 0.81], "paw": [0.83, 0.835] }]
+  }
+}

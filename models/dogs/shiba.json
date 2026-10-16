@@ -1,0 +1,19 @@
+{
+  "name": "시바",
+  "note": "사진으로 만든 몸. 몸을 왼쪽 옆에서 본 그림(이 몸은 머리가 오른쪽) 위의 관절 위치. 좌표는 그림의 가로·세로를 0~1로 본 값이다.",
+  "size": 0.9,
+  "toon": 0.6,
+  "waddle": 0.5,
+  "face": "This dog is a red Shiba Inu with cream cheeks, cream muzzle and small cream eyebrow spots.",
+  "points": {
+    "nose": [0.96, 0.3],
+    "skull": [0.78, 0.27],
+    "neck_base": [0.7, 0.38],
+    "chest": [0.69, 0.42],
+    "pelvis": [0.2, 0.43],
+    "ear": { "base": [0.78, 0.2], "tip": [0.81, 0.12] },
+    "tail": [[0.1, 0.4], [0.08, 0.28], [0.18, 0.215], [0.29, 0.3]],
+    "front_legs": [{ "shoulder": [0.68, 0.52], "elbow": [0.67, 0.63], "wrist": [0.69, 0.84], "paw": [0.72, 0.89] }],
+    "hind_legs": [{ "hip": [0.16, 0.52], "knee": [0.2, 0.64], "hock": [0.1, 0.75], "ankle": [0.11, 0.86], "paw": [0.13, 0.895] }]
+  }
+}
