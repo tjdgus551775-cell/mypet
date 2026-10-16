@@ -1,0 +1,20 @@
+{
+  "name": "래브라도",
+  "note": "사진으로 만든 몸(사용자가 준 노란 래브라도 사진, 2026-10-17). mypetPicture 옆모습(머리 오른쪽) 좌표 그대로. 좌표는 그림의 가로·세로를 0~1로 본 값이다. 짧고 촘촘한 털이라 뼈는 몸 윤곽 가까이 둔다. 앞발목은 팔꿈치~땅의 약 27% 높이.",
+  "size": 1.25,
+  "toon": 0.6,
+  "fur": 0.5,
+  "waddle": 0.4,
+  "face": "This dog is a yellow Labrador Retriever, not a Golden Retriever, not a puppy and not a Shiba Inu: a broad head with a strong straight muzzle, a dark brown-black nose, warm brown eyes, soft short drop ears a little darker yellow than the face, a short dense smooth cream-yellow coat with no long feathering.",
+  "points": {
+    "nose": [0.93, 0.31],
+    "skull": [0.8, 0.27],
+    "neck_base": [0.7, 0.39],
+    "chest": [0.73, 0.48],
+    "pelvis": [0.3, 0.44],
+    "ear": { "base": [0.79, 0.24], "tip": [0.81, 0.33] },
+    "tail": [[0.26, 0.39], [0.18, 0.33], [0.11, 0.26], [0.065, 0.19]],
+    "front_legs": [{ "shoulder": [0.71, 0.52], "elbow": [0.69, 0.61], "wrist": [0.715, 0.77], "paw": [0.75, 0.825] }],
+    "hind_legs": [{ "hip": [0.3, 0.5], "knee": [0.335, 0.62], "hock": [0.22, 0.71], "ankle": [0.225, 0.78], "paw": [0.25, 0.825] }]
+  }
+}

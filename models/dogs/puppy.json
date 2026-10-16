@@ -1,6 +1,7 @@
 {
   "name": "똘이",
   "note": "사진으로 만든 몸. 몸을 왼쪽 옆에서 본 그림(이 몸은 머리가 오른쪽) 위의 관절 위치. 좌표는 그림의 가로·세로를 0~1로 본 값이다.",
+  "tailUp": true,
   "size": 0.62,
   "toon": 0.6,
   "face": "This dog is a tiny fluffy puppy (maltipoo-like), not a retriever and not an adult dog: a round baby face with a very short muzzle, big round dark eyes, a small black button nose, a white muzzle and a white stripe on the forehead, apricot curly fur, short floppy ears close to the head.",
