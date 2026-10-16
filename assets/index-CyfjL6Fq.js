@@ -4175,16 +4175,17 @@ if (diffuseColor.a < 0.01) discard;`)},t.set(r,s)}return s};for(const[r,s,o,a,l]
           float core = exp(-r * r * 22.0);
           vec3 col = mix(uColor, vec3(1.0, 0.98, 0.9), core);
           gl_FragColor = vec4(col * (glow * 0.8 + core) * vFade * vTwinkle, 1.0);
-        }`}));return h.frustumCulled=!1,h.renderOrder=10,e.add(h),n.add(e),new URLSearchParams(location.search).has("debug")&&(window.mypetRays=r),{resize(d,g){f.uScale.value=d/(2*Math.tan(je.degToRad(g)/2))},tick(d){f.uTime.value=d;for(const g of r)g.mesh.material.opacity=g.base*(.6+.4*Math.sin(d*g.speed+g.phase));t.material.opacity=.85+.15*Math.sin(d*.2)}}}const WL={uniforms:{tDiffuse:{value:null},uAspect:{value:1},uStrength:{value:.45},uWarm:{value:new et("#fff2d6")}},vertexShader:"varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",fragmentShader:`
+        }`}));return h.frustumCulled=!1,h.renderOrder=10,e.add(h),n.add(e),new URLSearchParams(location.search).has("debug")&&(window.mypetRays=r),{resize(d,g){f.uScale.value=d/(2*Math.tan(je.degToRad(g)/2))},tick(d){f.uTime.value=d;for(const g of r)g.mesh.material.opacity=g.base*(.6+.4*Math.sin(d*g.speed+g.phase));t.material.opacity=.85+.15*Math.sin(d*.2)}}}const WL={uniforms:{tDiffuse:{value:null},uAspect:{value:1},uStrength:{value:.3},uWarm:{value:new et("#fff2d6")}},vertexShader:"varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",fragmentShader:`
     uniform sampler2D tDiffuse; uniform float uAspect; uniform float uStrength; uniform vec3 uWarm;
     varying vec2 vUv;
     void main() {
-      vec2 c = vUv - 0.5;
-      c.x *= uAspect;
-      float edge = smoothstep(0.36, 0.92, length(c));
+      // (사용자 "와이드 화면에서 좌우 흐림이 너무 강하다": 화면 비율과 상관없이 위아래·좌우 모두 화면 끝에서 같은 만큼만 흐린다.
+      //  예전에는 가로를 화면 비율만큼 늘려 재서, 넓은 화면일수록 좌우가 깊숙이 흐려졌다)
+      vec2 c = (vUv - 0.5) * 2.0;
+      float edge = smoothstep(0.55, 1.15, length(c * vec2(0.95, 1.0))) * 0.75;
       vec4 col = texture2D(tDiffuse, vUv);
-      // 가장자리만 주변 여덟 곳을 섞어 부드럽게 흐린다.
-      float r = edge * 0.01;
+      // 가장자리만 주변 여덟 곳을 섞어 부드럽게 흐린다(흐림 폭은 화면 비율에 맞춰 좌우·위아래가 같게).
+      vec2 r = edge * 0.006 * vec2(1.0 / max(uAspect, 1.0), 1.0);
       vec4 soft = col;
       for (int i = 0; i < 8; i++) {
         float a = float(i) * 0.7853982;
