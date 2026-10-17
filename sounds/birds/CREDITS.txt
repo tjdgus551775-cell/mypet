@@ -1,6 +1,0 @@
-﻿meadow-chorus.mp3
-  "Sonus naturalis - Soundscape XC269088" by Alexander Kurthy (xeno-canto XC269088)
-  https://commons.wikimedia.org/wiki/File:Sonus_naturalis_-_Soundscape_XC269088.mp3
-  https://www.xeno-canto.org/269088
-  License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
-  Used unmodified as looping background ambience (the player crossfades the loop point).
