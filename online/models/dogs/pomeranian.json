@@ -1,0 +1,20 @@
+{
+  "name": "포메라니안",
+  "note": "사진으로 만든 몸. mypetPicture 옆모습(머리 오른쪽) 위의 관절 위치, 좌표는 그림의 가로·세로를 0~1로 본 값. 꼬리는 등 위로 말려 올라가 앞쪽으로 눕는다(스피츠). 다리는 털 속에 짧게 숨어 있다.",
+  "size": 0.6,
+  "toon": 0.6,
+  "fur": 1.5,
+  "waddle": 0.3,
+  "face": "This dog is a pure white Pomeranian, not a puppy of another breed: a small fox-like face with a short fine muzzle, a black button nose, round dark shiny eyes, small upright triangular ears with a little pink inside, and a big fluffy white mane all around the face.",
+  "points": {
+    "nose": [0.94, 0.33],
+    "skull": [0.81, 0.3],
+    "neck_base": [0.7, 0.42],
+    "chest": [0.69, 0.54],
+    "pelvis": [0.27, 0.52],
+    "ear": { "base": [0.79, 0.22], "tip": [0.81, 0.16] },
+    "tail": [[0.2, 0.44], [0.13, 0.32], [0.24, 0.21], [0.4, 0.28]],
+    "front_legs": [{ "shoulder": [0.68, 0.62], "elbow": [0.66, 0.72], "wrist": [0.69, 0.825], "paw": [0.72, 0.855] }],
+    "hind_legs": [{ "hip": [0.25, 0.6], "knee": [0.29, 0.7], "hock": [0.19, 0.78], "ankle": [0.2, 0.83], "paw": [0.22, 0.86] }]
+  }
+}
