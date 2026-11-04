@@ -6,14 +6,87 @@
   "waddle": 0.4,
   "face": "This dog is a Golden Retriever, not a puppy and not a Shiba Inu: a gentle friendly face, a broad head with a medium-length muzzle, a black nose, warm dark brown eyes, soft drop ears covered in wavy golden fur, a rich golden coat.",
   "points": {
-    "nose": [0.935, 0.31],
-    "skull": [0.8, 0.28],
-    "neck_base": [0.7, 0.4],
-    "chest": [0.71, 0.46],
-    "pelvis": [0.34, 0.45],
-    "ear": { "base": [0.77, 0.25], "tip": [0.81, 0.38] },
-    "tail": [[0.3, 0.45], [0.22, 0.48], [0.14, 0.505], [0.07, 0.52]],
-    "front_legs": [{ "shoulder": [0.72, 0.53], "elbow": [0.705, 0.64], "wrist": [0.735, 0.765], "paw": [0.77, 0.8] }],
-    "hind_legs": [{ "hip": [0.36, 0.52], "knee": [0.41, 0.63], "hock": [0.31, 0.72], "ankle": [0.32, 0.77], "paw": [0.35, 0.8] }]
+    "nose": [
+      0.935,
+      0.31
+    ],
+    "skull": [
+      0.8,
+      0.28
+    ],
+    "neck_base": [
+      0.7,
+      0.4
+    ],
+    "chest": [
+      0.71,
+      0.46
+    ],
+    "pelvis": [
+      0.34,
+      0.45
+    ],
+    "tail": [
+      [
+        0.3,
+        0.45
+      ],
+      [
+        0.22,
+        0.48
+      ],
+      [
+        0.14,
+        0.505
+      ],
+      [
+        0.07,
+        0.52
+      ]
+    ],
+    "front_legs": [
+      {
+        "shoulder": [
+          0.72,
+          0.53
+        ],
+        "elbow": [
+          0.705,
+          0.64
+        ],
+        "wrist": [
+          0.735,
+          0.765
+        ],
+        "paw": [
+          0.77,
+          0.8
+        ]
+      }
+    ],
+    "hind_legs": [
+      {
+        "hip": [
+          0.36,
+          0.52
+        ],
+        "knee": [
+          0.41,
+          0.63
+        ],
+        "hock": [
+          0.31,
+          0.72
+        ],
+        "ankle": [
+          0.32,
+          0.77
+        ],
+        "paw": [
+          0.35,
+          0.8
+        ]
+      }
+    ]
   }
 }
