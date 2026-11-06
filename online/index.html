@@ -5,6 +5,14 @@
     <!-- www 로 들어오면 www 없는 주소로(2026-11-06 사용자 요청: 두 주소의 브라우저 기억이 따로 쌓이지 않게) -->
     <script>
       if (location.hostname === 'www.meongwol.co.kr') location.replace('https://meongwol.co.kr' + location.pathname + location.search + location.hash);
+      // 미리보기 사이트(test.meongwol.co.kr)는 검색에 나오지 않게, 탭 이름에 [미리보기]
+      if (location.hostname.startsWith('test.')) {
+        var noIndex = document.createElement('meta');
+        noIndex.name = 'robots';
+        noIndex.content = 'noindex, nofollow';
+        document.head.appendChild(noIndex);
+        document.addEventListener('DOMContentLoaded', function () { document.title = '[미리보기] ' + document.title; });
+      }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>멍월 — 언제나, 너와 함께한 시간</title>
@@ -26,8 +34,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="멍월" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <script type="module" crossorigin src="./assets/index-DrL3iDMI.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DWdwSfz6.css">
+    <script type="module" crossorigin src="./assets/index-D2mu-HwE.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-_MV5NS2S.css">
   </head>
   <body>
     <div id="root"></div>
