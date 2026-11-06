@@ -1,0 +1,13 @@
+birds.mp3
+  "Birds singing in garden" by ezwa
+  https://commons.wikimedia.org/wiki/File:Birds_singing_in_garden.ogg
+  License: Public domain
+  Mixed to mono, raised so the loudest point is -3 dB, re-encoded to MP3 (data/expr/sound/make-ambience.mjs). Played quietly under the music in the park and lakeside garden.
+
+sea.mp3
+  "NausetBeach" (sound of waves on Nauset Beach after sunset) by Groov3
+  https://commons.wikimedia.org/wiki/File:NausetBeach.ogg
+  License: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+  Changes: the part from 1:00 to 2:36 was cut out, mixed to mono, raised so the loudest point is -3 dB, re-encoded to MP3
+  (data/expr/sound/make-ambience.mjs). This changed file is shared under the same CC BY-SA 4.0 license.
+  Played quietly under the music on the beach map.

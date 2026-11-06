@@ -3,3 +3,15 @@ music-box-gentle2.mp3
   https://commons.wikimedia.org/wiki/File:PeriTune_-_Music-box_Gentle2(Healing-Royalty_Free_Music).opus
   License: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)
   MP3 transcode from Wikimedia Commons, used unmodified as looping background music in the heaven yard.
+
+long-way-home.mp3
+  "The Long Way Home" by Scott Buckley (https://www.scottbuckley.com.au/library/the-long-way-home/)
+  https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_The_Long_Way_Home.oga
+  License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+  MP3 transcode from Wikimedia Commons, used unmodified as the default looping background music of the yard and walks.
+
+buckley-sleep.mp3
+  "Sleep (piano-only mix)" by Scott Buckley (https://www.scottbuckley.com.au/library/)
+  https://commons.wikimedia.org/wiki/File:Scott_Buckley_-_Sleep_(piano-only_mix).oga
+  License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+  MP3 transcode from Wikimedia Commons, used unmodified as looping background music of the lantern pages.
