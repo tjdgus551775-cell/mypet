@@ -1,0 +1,151 @@
+<!doctype html>
+<!-- 컴퓨터에서 휴대폰 화면 보기(2026-11-07 사용자 "모바일도 내 pc로 볼 수 있게 테스트사이트에 해줄 수 있어?").
+     미리보기 사이트에만 phone.html 로 올린다(test.meongwol.co.kr/phone.html). 진짜 멍월 사이트에는 올리지 않는다.
+     휴대폰 크기 틀 안에 사이트를 ?phone=1 로 연다: 휴대폰 그래픽·조작 단추로 보이고, 마우스를 손가락처럼 끌어 쓴다. -->
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>[미리보기] 휴대폰 화면</title>
+<link rel="icon" href="data:," />
+<style>
+  :root {
+    --bg: #15171f;
+    --panel: #20232e;
+    --ink: #eef0f6;
+    --sub: #9aa0b4;
+    --on: #f4d27a;
+    --line: rgba(255, 255, 255, 0.1);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard', 'Malgun Gothic', system-ui, sans-serif;
+    font-size: 14px;
+  }
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 18px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+  header h1 { margin: 0 6px 0 0; font-size: 16px; font-weight: 700; }
+  .group { display: flex; align-items: center; gap: 4px; }
+  .group span { margin-right: 4px; color: var(--sub); font-size: 12.5px; }
+  button {
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  button:hover { background: rgba(255, 255, 255, 0.06); }
+  button.on { border-color: var(--on); background: rgba(244, 210, 122, 0.14); color: var(--on); font-weight: 700; }
+  main {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .phone {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 12px;
+    border-radius: 44px;
+    background: #050506;
+    box-shadow: 0 0 0 2px #3a3d48, 0 30px 80px rgba(0, 0, 0, 0.55);
+    transform-origin: center;
+  }
+  .phone iframe {
+    display: block;
+    border: 0;
+    border-radius: 32px;
+    background: #000;
+  }
+  .note { color: var(--sub); font-size: 12.5px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>휴대폰 화면 보기</h1>
+  <div class="group" id="devices"><span>기기</span></div>
+  <div class="group" id="turns"><span>방향</span></div>
+  <div class="group" id="pages"><span>화면</span></div>
+  <div class="group"><button type="button" id="again">새로고침</button></div>
+  <p class="note">마우스로 끌면 손가락으로 끄는 것과 같아요. 미리보기 사이트 전용이에요.</p>
+</header>
+<main>
+  <div class="phone" id="phone"><iframe id="screen" title="휴대폰 화면" allow="autoplay; fullscreen"></iframe></div>
+</main>
+<script>
+  // (기기 크기: 휴대폰 브라우저가 실제로 쓰는 화면 크기, CSS 픽셀)
+  var DEVICES = [
+    ['아이폰 15', 393, 852],
+    ['갤럭시 S24', 360, 780],
+    ['아이폰 SE', 375, 667],
+  ];
+  var TURNS = [['세로', false], ['가로', true]];
+  var PAGES = [['홈', ''], ['산책', '#/walk'], ['등불', '#/lantern'], ['로그인', '#/login']];
+  var keep = {};
+  try { keep = JSON.parse(localStorage.getItem('phone-view') || '{}'); } catch (e) {}
+  var state = { device: keep.device || 0, wide: !!keep.wide, page: keep.page || 0 };
+  var phone = document.getElementById('phone');
+  var frame = document.getElementById('screen');
+
+  function save() { try { localStorage.setItem('phone-view', JSON.stringify(state)); } catch (e) {} }
+  function buttons(id, list, key, value) {
+    var box = document.getElementById(id);
+    list.forEach(function (one, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = one[0];
+      b.onclick = function () { state[key] = value(i); save(); draw(key === 'page' || key === 'device' || key === 'wide'); };
+      b.dataset.key = key;
+      b.dataset.i = i;
+      box.appendChild(b);
+    });
+  }
+  buttons('devices', DEVICES, 'device', function (i) { return i; });
+  buttons('turns', TURNS, 'wide', function (i) { return TURNS[i][1]; });
+  buttons('pages', PAGES, 'page', function (i) { return i; });
+
+  function fit() {
+    var main = document.querySelector('main');
+    var w = phone.offsetWidth, h = phone.offsetHeight;
+    var k = Math.min(1, (main.clientWidth - 36) / w, (main.clientHeight - 36) / h);
+    phone.style.transform = 'translate(-50%, -50%) scale(' + k + ')';
+  }
+  function draw(reload) {
+    var d = DEVICES[state.device];
+    var w = state.wide ? d[2] : d[1];
+    var h = state.wide ? d[1] : d[2];
+    frame.style.width = w + 'px';
+    frame.style.height = h + 'px';
+    document.querySelectorAll('header button[data-key]').forEach(function (b) {
+      var k = b.dataset.key, i = Number(b.dataset.i);
+      var on = k === 'device' ? state.device === i : k === 'wide' ? TURNS[i][1] === state.wide : state.page === i;
+      b.classList.toggle('on', on);
+    });
+    // (크기가 바뀌면 그래픽을 새 크기로 다시 준비하도록 새로 연다)
+    // (phone.html?me=pome 처럼 붙인 것은 사이트에도 넘긴다)
+    if (reload) frame.src = './?phone=1' + (location.search ? '&' + location.search.slice(1) : '') + PAGES[state.page][1];
+    fit();
+  }
+  document.getElementById('again').onclick = function () { draw(true); };
+  window.addEventListener('resize', fit);
+  draw(true);
+</script>
+</body>
+</html>
