@@ -2,6 +2,10 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <!-- www 로 들어오면 www 없는 주소로(2026-11-06 사용자 요청: 두 주소의 브라우저 기억이 따로 쌓이지 않게) -->
+    <script>
+      if (location.hostname === 'www.meongwol.co.kr') location.replace('https://meongwol.co.kr' + location.pathname + location.search + location.hash);
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>멍월 — 언제나, 너와 함께한 시간</title>
     <!-- 글꼴: Pretendard(사용자 "아래 글씨체가 B급 느낌" → 요즘 한국 앱에서 많이 쓰는 깔끔한 글꼴, 2026-10-17) -->
