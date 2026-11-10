@@ -13,11 +13,15 @@ export async function onRequestGet({ params, request, waitUntil }) {
   const cache = caches.default;
   const key = new Request(new URL(`/dogfile/${name}`, request.url).toString());
   const hit = await cache.match(key);
-  if (hit) return hit;
+  if (hit) {
+    const again = new Response(hit.body, hit);
+    again.headers.set('X-Meongwol-Edge', 'hit'); // (확인용: Cloudflare 가 기억해 둔 것을 냈다)
+    return again;
+  }
   const origin = await fetch(`https://api.meongwol.co.kr/models/dogs/${name}`);
   if (!origin.ok) return new Response(origin.body, { status: origin.status, headers: { 'Cache-Control': 'no-store' } });
   const done = /max-age=\d+/.test(origin.headers.get('Cache-Control') ?? '');
-  const headers = { 'Content-Type': 'model/gltf-binary', 'Cache-Control': done ? KEEP : 'no-store' };
+  const headers = { 'Content-Type': 'model/gltf-binary', 'Cache-Control': done ? KEEP : 'no-store', 'X-Meongwol-Edge': 'miss' };
   const length = origin.headers.get('Content-Length');
   if (length) headers['Content-Length'] = length;
   const res = new Response(origin.body, { status: 200, headers });
