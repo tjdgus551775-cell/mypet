@@ -4,6 +4,7 @@
 // 멍월 사이트 저장소(mypet-pages·mypet-preview)의 functions/ 로 복사된다(원본은 강스타/pages-functions). 화면은 aiDog.ts glbFile 이 이 주소를 쓴다.
 // 다 만든 몸(서버가 max-age 를 붙여 주는 것)만 기억한다. 만드는 중인 몸은 그대로 지나간다.
 // 기억은 하루: 몸을 다시 만들어 바꾸는 일이 있어도 하루 안에 새 몸으로 바뀐다.
+// 판 번호(?v=, 몸 json 의 bodyV)가 붙으면 그 판끼리 따로 기억한다: 몸을 바꾸면 바로 새 몸이 나간다(2026-11-12 릴리).
 const NAME = /^mine-[0-9a-f]{8}\.glb$/;
 const KEEP = 'public, max-age=86400';
 
@@ -11,14 +12,16 @@ export async function onRequestGet({ params, request, waitUntil }) {
   const name = String(params.name ?? '');
   if (!NAME.test(name)) return new Response('없는 파일이에요', { status: 404 });
   const cache = caches.default;
-  const key = new Request(new URL(`/dogfile/${name}`, request.url).toString());
+  const v = new URL(request.url).searchParams.get('v') ?? '';
+  const ver = /^[0-9a-z-]{1,24}$/.test(v) ? `?v=${v}` : '';
+  const key = new Request(new URL(`/dogfile/${name}${ver}`, request.url).toString());
   const hit = await cache.match(key);
   if (hit) {
     const again = new Response(hit.body, hit);
     again.headers.set('X-Meongwol-Edge', 'hit'); // (확인용: Cloudflare 가 기억해 둔 것을 냈다)
     return again;
   }
-  const origin = await fetch(`https://api.meongwol.co.kr/models/dogs/${name}`);
+  const origin = await fetch(`https://api.meongwol.co.kr/models/dogs/${name}${ver}`);
   if (!origin.ok) return new Response(origin.body, { status: origin.status, headers: { 'Cache-Control': 'no-store' } });
   const done = /max-age=\d+/.test(origin.headers.get('Cache-Control') ?? '');
   const headers = { 'Content-Type': 'model/gltf-binary', 'Cache-Control': done ? KEEP : 'no-store', 'X-Meongwol-Edge': 'miss' };
