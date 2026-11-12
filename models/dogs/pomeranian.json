@@ -1,104 +1,105 @@
 {
-  "name": "포메라니안",
-  "note": "사진으로 만든 몸. mypetPicture 옆모습(머리 오른쪽) 위의 관절 위치, 좌표는 그림의 가로·세로를 0~1로 본 값. 꼬리는 등 위로 말려 올라가 앞쪽으로 눕는다(스피츠). 다리는 털 속에 짧게 숨어 있다.",
-  "size": 0.6,
-  "toon": 0,
-  "fur": 0,
-  "waddle": 0.3,
-  "face": "This dog is a pure white Pomeranian, not a puppy of another breed: a small fox-like face with a short fine muzzle, a black button nose, round dark shiny eyes, small upright triangular ears with a little pink inside, and a big fluffy white mane all around the face.",
-  "points": {
-    "nose": [
-      0.94,
-      0.33
+ "name": "포메라니안",
+ "note": "사진으로 만든 몸. mypetPicture 옆모습(머리 오른쪽) 위의 관절 위치, 좌표는 그림의 가로·세로를 0~1로 본 값. 꼬리는 등 위로 말려 올라가 앞쪽으로 눕는다(스피츠). 다리는 털 속에 짧게 숨어 있다.",
+ "size": 0.6,
+ "toon": 0,
+ "fur": 0,
+ "waddle": 0.3,
+ "face": "This dog is a pure white Pomeranian, not a puppy of another breed: a small fox-like face with a short fine muzzle, a black button nose, round dark shiny eyes, small upright triangular ears with a little pink inside, and a big fluffy white mane all around the face.",
+ "points": {
+  "nose": [
+   0.94,
+   0.33
+  ],
+  "skull": [
+   0.81,
+   0.3
+  ],
+  "neck_base": [
+   0.7,
+   0.42
+  ],
+  "chest": [
+   0.69,
+   0.54
+  ],
+  "pelvis": [
+   0.27,
+   0.52
+  ],
+  "tail": [
+   [
+    0.2,
+    0.44
+   ],
+   [
+    0.13,
+    0.32
+   ],
+   [
+    0.24,
+    0.21
+   ],
+   [
+    0.4,
+    0.28
+   ]
+  ],
+  "front_legs": [
+   {
+    "shoulder": [
+     0.68,
+     0.62
     ],
-    "skull": [
-      0.81,
-      0.3
+    "elbow": [
+     0.66,
+     0.72
     ],
-    "neck_base": [
-      0.7,
-      0.42
+    "wrist": [
+     0.69,
+     0.825
     ],
-    "chest": [
-      0.69,
-      0.54
-    ],
-    "pelvis": [
-      0.27,
-      0.52
-    ],
-    "tail": [
-      [
-        0.2,
-        0.44
-      ],
-      [
-        0.13,
-        0.32
-      ],
-      [
-        0.24,
-        0.21
-      ],
-      [
-        0.4,
-        0.28
-      ]
-    ],
-    "front_legs": [
-      {
-        "shoulder": [
-          0.68,
-          0.62
-        ],
-        "elbow": [
-          0.66,
-          0.72
-        ],
-        "wrist": [
-          0.69,
-          0.825
-        ],
-        "paw": [
-          0.72,
-          0.855
-        ]
-      }
-    ],
-    "hind_legs": [
-      {
-        "hip": [
-          0.25,
-          0.6
-        ],
-        "knee": [
-          0.29,
-          0.7
-        ],
-        "hock": [
-          0.19,
-          0.78
-        ],
-        "ankle": [
-          0.2,
-          0.83
-        ],
-        "paw": [
-          0.22,
-          0.86
-        ]
-      }
+    "paw": [
+     0.72,
+     0.855
     ]
-  },
-  "gait": {
-    "stride": 1.3,
-    "track": 0.6
-  },
-  "coat": {
-    "r": 1,
-    "g": 1.03,
-    "b": 1.14,
-    "sat": 0.9
-  },
-  "crownUp": 0.22
+   }
+  ],
+  "hind_legs": [
+   {
+    "hip": [
+     0.25,
+     0.6
+    ],
+    "knee": [
+     0.29,
+     0.7
+    ],
+    "hock": [
+     0.19,
+     0.78
+    ],
+    "ankle": [
+     0.2,
+     0.83
+    ],
+    "paw": [
+     0.22,
+     0.86
+    ]
+   }
+  ]
+ },
+ "gait": {
+  "stride": 1.3,
+  "track": 0.6,
+  "hindIn": 0.5
+ },
+ "coat": {
+  "r": 1,
+  "g": 1.03,
+  "b": 1.14,
+  "sat": 0.9
+ },
+ "crownUp": 0.22
 }
