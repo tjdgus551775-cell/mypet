@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /online/
+Disallow: /accounts/
+
+Sitemap: https://meongwol.co.kr/sitemap.xml
