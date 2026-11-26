@@ -7,6 +7,12 @@
 // 판 번호(?v=, 몸 json 의 bodyV)가 붙으면 그 판끼리 따로 기억한다: 몸을 바꾸면 바로 새 몸이 나간다(2026-11-12 릴리).
 const NAME = /^mine-[0-9a-f]{8}\.glb$/;
 const KEEP = 'public, max-age=86400';
+// glb 가 끝까지 왔는지: 'glTF' 로 시작하고, 9~12번째 바이트에 적힌 전체 길이와 받은 길이가 같다
+const whole = (buf) => {
+  if (buf.byteLength < 12) return false;
+  const v = new DataView(buf);
+  return v.getUint32(0, true) === 0x46546c67 && v.getUint32(8, true) === buf.byteLength;
+};
 
 export async function onRequestGet({ params, request, waitUntil }) {
   const name = String(params.name ?? '');
@@ -17,9 +23,14 @@ export async function onRequestGet({ params, request, waitUntil }) {
   const key = new Request(new URL(`/dogfile/${name}${ver}`, request.url).toString());
   const hit = await cache.match(key);
   if (hit) {
-    const again = new Response(hit.body, hit);
-    again.headers.set('X-Meongwol-Edge', 'hit'); // (확인용: Cloudflare 가 기억해 둔 것을 냈다)
-    return again;
+    // (기억해 둔 것이 반쪽이면 버리고 새로 받는다: 2026-11-27 코코, 받는 도중 끊긴 몸이 기억된 일)
+    const kept = await hit.arrayBuffer().catch(() => null);
+    if (kept && whole(kept)) {
+      const again = new Response(kept, hit);
+      again.headers.set('X-Meongwol-Edge', 'hit'); // (확인용: Cloudflare 가 기억해 둔 것을 냈다)
+      return again;
+    }
+    await cache.delete(key).catch(() => {});
   }
   // (2026-11-26 모카: 예전에는 받는 대로 손님에게 보내면서 동시에 기억해 두었는데, 손님이 받는 도중 끊기자 기억하던 것도 반쯤에서 멈추고
   //  그 뒤 이 주소를 찾는 사람이 몇 시간 동안 끝없이 기다렸다. 이제 우리 서버에서 끝까지 다 받은 다음(6초 넘으면 포기: 화면이 곧장 우리 서버로 간다) 기억하고 내보낸다. 우리 서버는 0.1초)
@@ -29,6 +40,7 @@ export async function onRequestGet({ params, request, waitUntil }) {
     origin = await fetch(`https://api.meongwol.co.kr/models/dogs/${name}${ver}`, { signal: AbortSignal.timeout(6000) });
     if (!origin.ok) return new Response(null, { status: origin.status, headers: { 'Cache-Control': 'no-store' } });
     data = await origin.arrayBuffer();
+    if (!whole(data)) throw new Error('덜 왔음');
   } catch {
     return new Response('잠시 뒤 다시', { status: 504, headers: { 'Cache-Control': 'no-store' } });
   }
