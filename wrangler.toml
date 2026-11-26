@@ -1,0 +1,9 @@
+# 멍월 사이트(Cloudflare Pages 프로젝트 meongwol) 설정. 2026-11-27 아이 몸 R2 진열대(meongwol-dogs)를 functions/dogfile 이 DOGS 로 읽게 한다.
+# 이 파일이 있으면 Cloudflare 화면의 바인딩·호환 날짜 대신 이 파일을 따른다(대시보드에는 다른 변수·바인딩이 없었다).
+name = "meongwol"
+pages_build_output_dir = "."
+compatibility_date = "2026-11-06"
+
+[[r2_buckets]]
+binding = "DOGS"
+bucket_name = "meongwol-dogs"
