@@ -21,13 +21,19 @@ export async function onRequestGet({ params, request, waitUntil }) {
     again.headers.set('X-Meongwol-Edge', 'hit'); // (확인용: Cloudflare 가 기억해 둔 것을 냈다)
     return again;
   }
-  const origin = await fetch(`https://api.meongwol.co.kr/models/dogs/${name}${ver}`);
-  if (!origin.ok) return new Response(origin.body, { status: origin.status, headers: { 'Cache-Control': 'no-store' } });
+  // (2026-11-26 모카: 예전에는 받는 대로 손님에게 보내면서 동시에 기억해 두었는데, 손님이 받는 도중 끊기자 기억하던 것도 반쯤에서 멈추고
+  //  그 뒤 이 주소를 찾는 사람이 몇 시간 동안 끝없이 기다렸다. 이제 우리 서버에서 끝까지 다 받은 다음(15초 넘으면 포기) 기억하고 내보낸다. 우리 서버는 0.1초)
+  let origin;
+  let data;
+  try {
+    origin = await fetch(`https://api.meongwol.co.kr/models/dogs/${name}${ver}`, { signal: AbortSignal.timeout(15000) });
+    if (!origin.ok) return new Response(null, { status: origin.status, headers: { 'Cache-Control': 'no-store' } });
+    data = await origin.arrayBuffer();
+  } catch {
+    return new Response('잠시 뒤 다시', { status: 504, headers: { 'Cache-Control': 'no-store' } });
+  }
   const done = /max-age=\d+/.test(origin.headers.get('Cache-Control') ?? '');
-  const headers = { 'Content-Type': 'model/gltf-binary', 'Cache-Control': done ? KEEP : 'no-store', 'X-Meongwol-Edge': 'miss' };
-  const length = origin.headers.get('Content-Length');
-  if (length) headers['Content-Length'] = length;
-  const res = new Response(origin.body, { status: 200, headers });
-  if (done) waitUntil(cache.put(key, res.clone()));
-  return res;
+  const headers = { 'Content-Type': 'model/gltf-binary', 'Cache-Control': done ? KEEP : 'no-store', 'X-Meongwol-Edge': 'miss', 'Content-Length': String(data.byteLength) };
+  if (done) waitUntil(cache.put(key, new Response(data, { status: 200, headers })));
+  return new Response(data, { status: 200, headers });
 }
