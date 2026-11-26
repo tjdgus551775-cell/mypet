@@ -14,7 +14,7 @@ const whole = (buf) => {
   return v.getUint32(0, true) === 0x46546c67 && v.getUint32(8, true) === buf.byteLength;
 };
 
-export async function onRequestGet({ params, request, waitUntil }) {
+export async function onRequestGet({ params, request, waitUntil, env }) {
   const name = String(params.name ?? '');
   if (!NAME.test(name)) return new Response('없는 파일이에요', { status: 404 });
   const cache = caches.default;
@@ -31,6 +31,22 @@ export async function onRequestGet({ params, request, waitUntil }) {
       return again;
     }
     await cache.delete(key).catch(() => {});
+  }
+  // R2 진열대(2026-11-27 대표님 "R2 만들어", server/r2-dogs.sh 가 2분마다 올린다): 있으면 우리 서버까지 가지 않고 바로 낸다.
+  // 판 번호가 붙은 주소는 그 판의 자리(v-<판>.glb)만 본다. 없거나 반쪽이면 예전처럼 우리 서버에서 받는다
+  if (env?.DOGS) {
+    try {
+      const id = name.slice(0, -'.glb'.length);
+      const obj = await env.DOGS.get(`dogs/${id}/${ver ? `v-${v}` : 'base'}.glb`);
+      const shelf = obj ? await obj.arrayBuffer() : null;
+      if (shelf && whole(shelf)) {
+        const headers = { 'Content-Type': 'model/gltf-binary', 'Cache-Control': KEEP, 'X-Meongwol-Edge': 'r2', 'Content-Length': String(shelf.byteLength) };
+        waitUntil(cache.put(key, new Response(shelf, { status: 200, headers })));
+        return new Response(shelf, { status: 200, headers });
+      }
+    } catch {
+      /* R2 가 안 되면 우리 서버로 */
+    }
   }
   // (2026-11-26 모카: 예전에는 받는 대로 손님에게 보내면서 동시에 기억해 두었는데, 손님이 받는 도중 끊기자 기억하던 것도 반쯤에서 멈추고
   //  그 뒤 이 주소를 찾는 사람이 몇 시간 동안 끝없이 기다렸다. 이제 우리 서버에서 끝까지 다 받은 다음(6초 넘으면 포기: 화면이 곧장 우리 서버로 간다) 기억하고 내보낸다. 우리 서버는 0.1초)
