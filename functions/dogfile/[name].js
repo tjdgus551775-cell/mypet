@@ -22,11 +22,11 @@ export async function onRequestGet({ params, request, waitUntil }) {
     return again;
   }
   // (2026-11-26 모카: 예전에는 받는 대로 손님에게 보내면서 동시에 기억해 두었는데, 손님이 받는 도중 끊기자 기억하던 것도 반쯤에서 멈추고
-  //  그 뒤 이 주소를 찾는 사람이 몇 시간 동안 끝없이 기다렸다. 이제 우리 서버에서 끝까지 다 받은 다음(15초 넘으면 포기) 기억하고 내보낸다. 우리 서버는 0.1초)
+  //  그 뒤 이 주소를 찾는 사람이 몇 시간 동안 끝없이 기다렸다. 이제 우리 서버에서 끝까지 다 받은 다음(6초 넘으면 포기: 화면이 곧장 우리 서버로 간다) 기억하고 내보낸다. 우리 서버는 0.1초)
   let origin;
   let data;
   try {
-    origin = await fetch(`https://api.meongwol.co.kr/models/dogs/${name}${ver}`, { signal: AbortSignal.timeout(15000) });
+    origin = await fetch(`https://api.meongwol.co.kr/models/dogs/${name}${ver}`, { signal: AbortSignal.timeout(6000) });
     if (!origin.ok) return new Response(null, { status: origin.status, headers: { 'Cache-Control': 'no-store' } });
     data = await origin.arrayBuffer();
   } catch {
