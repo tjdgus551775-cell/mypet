@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 없는 주소(2026-11-28 대표님 "실제로 없는 경로는 404로"). Cloudflare Pages 는 이 파일이 있으면 없는 주소에 404 와 함께 이 화면을 준다.
+         화면 이동은 #/walk 처럼 # 뒤 주소라 진짜 페이지는 /, /faq/, /online/ 뿐이다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>찾는 페이지가 없어요 · 멍월</title>
+    <link rel="icon" type="image/png" href="/aurora/favicon.png?v=20261111" />
+    <style>
+      html { background: #10143c; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px));
+        box-sizing: border-box;
+        color: #f4f1ff;
+        background: radial-gradient(120% 70% at 80% 0%, #3a3f8f 0%, #1d2560 38%, #10143c 75%);
+        font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+        text-align: center;
+        word-break: keep-all;
+      }
+      h1 { font-size: 24px; margin: 0 0 10px; }
+      p { color: #c9c6e6; margin: 0 0 24px; line-height: 1.6; }
+      a { display: inline-block; background: #ffe7a8; color: #2a2350; text-decoration: none; font-weight: 700; padding: 12px 24px; border-radius: 999px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>찾는 페이지가 없어요</h1>
+      <p>주소가 바뀌었거나 없는 페이지예요.</p>
+      <a href="/">멍월로 가기</a>
+    </main>
+  </body>
+</html>
