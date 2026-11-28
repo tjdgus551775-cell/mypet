@@ -14,6 +14,32 @@
         document.head.appendChild(noIndex);
         document.addEventListener('DOMContentLoaded', function () { document.title = '[미리보기] ' + document.title; });
       }
+      // 들어온 경로(2026-11-28, server/arrivals.mjs): 이 탭의 처음 모습을 남기고(앱으로 넘어가도 같은 경로로), 한 번 알린다.
+      // 보내는 것은 앞 사이트 주소(? 뒤 값 빼고)·utm 값·앱 안 브라우저 종류·브라우저 무작위 번호뿐이다.
+      (function () {
+        try {
+          if (!sessionStorage.getItem('meongwol-landing')) sessionStorage.setItem('meongwol-landing', JSON.stringify({ ref: document.referrer, search: location.search, path: location.pathname }));
+          if (sessionStorage.getItem('meongwol-arrival-sent')) return;
+          var first = JSON.parse(sessionStorage.getItem('meongwol-landing'));
+          var id = localStorage.getItem('meongwol-visitor');
+          if (!id || !/^[a-z0-9]{8,32}$/.test(id)) {
+            id = Array.prototype.map.call(crypto.getRandomValues(new Uint8Array(10)), function (b) { return (b % 36).toString(36); }).join('');
+            localStorage.setItem('meongwol-visitor', id);
+          }
+          var q = new URLSearchParams(first.search || '');
+          var utm = {};
+          ['source', 'medium', 'campaign', 'content', 'term'].forEach(function (k) { var v = q.get('utm_' + k); if (v) utm[k] = v.slice(0, 80); });
+          var ref = '';
+          try { if (first.ref) { var u = new URL(first.ref); ref = (u.origin + u.pathname).slice(0, 300); } } catch (e) {}
+          var ua = navigator.userAgent;
+          var inapp = /KAKAOTALK/i.test(ua) ? 'kakaotalk' : /Instagram/i.test(ua) ? 'instagram' : /Barcelona|Threads/i.test(ua) ? 'threads' : /FBAN|FBAV|FB_IAB/i.test(ua) ? 'facebook' : /NAVER/i.test(ua) ? 'naver' : /BAND\//i.test(ua) ? 'band' : / Line\//i.test(ua) ? 'line' : '';
+          var host = location.hostname;
+          var api = host === 'meongwol.co.kr' || host.endsWith('.meongwol.co.kr') ? 'https://api.meongwol.co.kr' : '';
+          fetch(api + '/api/presence', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, keepalive: true, body: JSON.stringify({ id: id, page: 'faq', arrive: { ref: ref, utm: utm, inapp: inapp, landing: '/faq/' } }) })
+            .then(function (r) { if (r.ok) sessionStorage.setItem('meongwol-arrival-sent', '1'); })
+            .catch(function () {});
+        } catch (e) {}
+      })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>자주 묻는 질문 · 멍월 사진으로 만나는 우리 강아지 3D 추모 공간</title>
